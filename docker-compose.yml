@@ -15,5 +15,17 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  backend:
+    image: node:18
+    container_name: directus_backend
+    working_dir: /app/backend
+    volumes:
+      - .:/app
+    command: sh -c "npm install && npm start"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+
 volumes:
   mysql_data:
